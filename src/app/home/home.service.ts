@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { env } from '../../environment/environment'
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { HomeSearch, IEstatisticas, ResultadoPaginado } from './home'
+import { HomeSearch, IEstatisticas, IPaginacaoRequest, ResultadoPaginado } from './home'
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class HomeService {
     return this.http.get<IEstatisticas>(url)
   }
 
-  setFilterSearch(formFields: HomeSearch): Observable<ResultadoPaginado> {
+  setFilterSearch(formFields: HomeSearch, pagination: IPaginacaoRequest): Observable<ResultadoPaginado> {
     let parametros = new HttpParams();
 
     (Object.keys(formFields) as Array<keyof HomeSearch>).forEach((key) => {
@@ -24,8 +24,8 @@ export class HomeService {
         parametros = parametros.set(key, formFields[key])
       }
     })
-    parametros = parametros.set('pagina', 0)
-    parametros = parametros.set('porPagina', 10)
+    parametros = parametros.set('pagina', pagination.pagina)
+    parametros = parametros.set('porPagina', pagination.porPagina)
     const url = `${env.url}v1/pessoas/aberto/filtro`
     return this.http.get<ResultadoPaginado>(url, {
       params: parametros

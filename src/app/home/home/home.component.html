@@ -126,3 +126,16 @@
         </div>
     </div>
 </div>
+
+<div class="flex justify-center items-center">
+    <mat-paginator
+        class="w-full mt-4"
+        [length]="desaparecidos.totalElements"
+        [pageIndex]="pagination.pagina"
+        [pageSize]="pagination.porPagina"
+        [pageSizeOptions]="[10, 20, 50, 100]"
+        aria-label="Selecione uma página"
+        (page)="setPagination($event)"
+        >
+    </mat-paginator>
+</div>

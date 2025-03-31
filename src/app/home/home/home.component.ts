@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HomeService } from '../home.service';
-import { IEstatisticas, Estatisticas, ResultadoPaginado } from '../home';
+import { IEstatisticas, Estatisticas, ResultadoPaginado, IPaginacaoRequest } from '../home';
+import { PageEvent } from '@angular/material/paginator';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { IEstatisticas, Estatisticas, ResultadoPaginado } from '../home';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+  pagination: IPaginacaoRequest = { pagina: 0, porPagina: 10 };
   stats: IEstatisticas = new Estatisticas();
   skeletons = Array(10);
   loadingDesaparecidos: boolean = true
@@ -34,6 +36,12 @@ export class HomeComponent implements OnInit {
     this.submitSearchForm()
   }
 
+  setPagination(e: PageEvent){
+    this.pagination.porPagina = e.pageSize
+    this.pagination.pagina = e.pageIndex
+    this.submitSearchForm()
+  }
+
   loadingStatistics() {
     this.homeService.loadingStats()
       .subscribe(resp => {
@@ -43,7 +51,7 @@ export class HomeComponent implements OnInit {
 
   submitSearchForm(){
     this.loadingDesaparecidos = true
-    this.homeService.setFilterSearch(this.formFields.value)
+    this.homeService.setFilterSearch(this.formFields.value, this.pagination)
     .subscribe({
       next: async (resp) => {
         this.desaparecidos = await resp
