@@ -1,0 +1,44 @@
+<mat-card
+  class="max-w-96 w-full cursor-pointer h-full"
+  (click)="visualizarDesaparecido()"
+>
+
+  <div class="w-full">
+    @if (loadingImage) {
+    <div class="flex w-full h-80 items-center justify-center">
+      <div
+        class="h-80 w-full bg-gray-300 animate-pulse flex items-center justify-center"
+      >
+        <mat-spinner diameter="25"></mat-spinner>
+      </div>
+    </div>
+    }
+    <img
+      [src]="desaparecido.urlFoto ?? '../../../../assets/perfil_default.jpg'"
+      class="w-full h-80 object-cover object-center"
+      onerror="this.src='../../../../assets/perfil_default.jpg'"
+      [ngClass]="{ hidden: loadingImage, block: loadingImage === false }"
+      (loadstart)="carregarImagem(true)"
+      (load)="carregarImagem(false)"
+    />
+  </div>
+
+  <mat-card-title-group class="p-2">
+    <mat-card-title>
+      {{ desaparecido.nome }}
+    </mat-card-title>
+  </mat-card-title-group>
+  <mat-card-content class="-m-2 mt-2">
+    <p>{{ desaparecido.idade }} Anos, {{ genderList[desaparecido.sexo!] }}</p>
+    <p>
+      <span>Data:</span>
+      {{
+        desaparecido.ultimaOcorrencia?.dtDesaparecimento | date : "dd/MM/yyyy"
+      }}
+    </p>
+    <p>
+      <span>Local:</span>
+      {{ desaparecido.ultimaOcorrencia?.localDesaparecimentoConcat }}
+    </p>
+  </mat-card-content>
+</mat-card>
