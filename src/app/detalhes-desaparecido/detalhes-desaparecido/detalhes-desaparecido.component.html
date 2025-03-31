@@ -1,1 +1,69 @@
-<p>detalhes-desaparecido works!</p>
+<div class="flex justify-center items-center p-2 h-full w-full bg-zinc-100 ">
+    <div class="flex flex-col sm:flex-row justify-center sm:items-center">
+        <img
+            [src]="desaparecido.urlFoto ?? 'assets/perfil_default.jpg'"
+            class="rounded-md border-4 md:min-w-md max-h-96 md:max-h-[500px] object-cover object-center"
+            onerror="this.src='assets/perfil_default.jpg'"
+            [ngClass]="{
+                'border-red-500': !desaparecido.ultimaOcorrencia?.dataLocalizacao,
+                'border-green-600': !!desaparecido.ultimaOcorrencia?.dataLocalizacao }"
+        />
+        <div class="row">
+            <div
+                class="font-semibold mt-[-4px] sm:ml-[-4px] sm:pl-4 text-white p-1 sm:mt-0 rounded-b-md lg:rounded-b-none sm:rounded-br-md sm:rounded-tr-md text-2xl"
+                [ngClass]="{
+                'bg-red-500': !desaparecido.ultimaOcorrencia?.dataLocalizacao,
+                'bg-teal-700': !!desaparecido.ultimaOcorrencia?.dataLocalizacao
+                }"
+            >
+                @if (!!desaparecido.ultimaOcorrencia?.dataLocalizacao) { LOCALIZADO(A) } @else { DESAPARECIDO(A) }
+          </div>
+          <div class="p-4 clas flex flex-col">
+            <div class="uppercase font-semibold text-2xl md:text-3xl">
+              {{ desaparecido.nome }}
+            </div>
+            <p class="text-xl md:text-2xl text-gray-700">
+              {{ desaparecido.idade }} anos,
+              {{ listaSexo[desaparecido.sexo!] }}
+            </p>
+            <p class="text-xl md:text-2xl font-semibold border-t-black border-t-2 my-2 pt-2">
+              Dados sobre o Desaparecimento
+            </p>
+            <p>
+              <span class="font-semibold">Data: </span>
+              {{
+                desaparecido.ultimaOcorrencia?.dtDesaparecimento
+                  | date : "dd/MM/yyyy"
+              }}
+            </p>
+            <p>
+              <span class="font-semibold">Local:</span>
+              {{
+                desaparecido.ultimaOcorrencia?.localDesaparecimentoConcat
+              }}
+            </p>
+            <p>
+              <span class="font-semibold">Vestimenta:</span>
+              {{
+                desaparecido.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO
+                  ?.vestimentasDesaparecido || 'Não informado'
+              }}
+            </p>
+            <p class="text-justify">
+              <span class="font-semibold">Informações adicionais:</span>
+              {{
+                desaparecido.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO
+                  ?.informacao || 'Não informado'
+              }}
+            </p>
+            <p class="font-semibold text-red-500 text-lg md:text-xl">
+              DESAPARECIDO HÁ {{ getDiasDesaparecido() + 1 }} DIAS!
+            </p>
+            <button
+                (click)="teste()"
+                class="bg-red-600 text-white rounded-xl w-full p-3 font-semibold"
+            >Enviar informações adicionais</button>
+          </div>
+        </div>
+    </div>
+</div>
