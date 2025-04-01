@@ -12,7 +12,7 @@
                 onerror="this.src='assets/perfil_default.jpg'"
                 [ngClass]="{
                     'border-red-500': !desaparecido.ultimaOcorrencia?.dataLocalizacao,
-                    'border-green-600': !!desaparecido.ultimaOcorrencia?.dataLocalizacao }"
+                    'border-teal-700': !!desaparecido.ultimaOcorrencia?.dataLocalizacao }"
             />
             <div class="row">
                 <div
@@ -62,13 +62,23 @@
                       ?.informacao || 'Não informado'
                   }}
                 </p>
-                <p class="font-semibold text-red-500 text-lg md:text-xl">
-                  DESAPARECIDO HÁ {{ getDiasDesaparecido() + 1 }} DIAS!
+                <p class="font-semibold text-red-500 text-lg md:text-xl" [ngClass]="{
+                  'text-red-500': !desaparecido.ultimaOcorrencia?.dataLocalizacao,
+                  'text-teal-700': !!desaparecido.ultimaOcorrencia?.dataLocalizacao
+                }">
+                  @if (!!desaparecido.ultimaOcorrencia?.dataLocalizacao) {
+                    JÁ FOI ENCONTRADO!
+                  } @else {
+                    DESAPARECIDO HÁ {{ getDiasDesaparecido() + 1 }} DIAS!
+                  }
+                  
                 </p>
-                <button
-                    (click)="openDialogSendInformations()"
-                    class="bg-red-600 text-white rounded-xl w-full p-3 font-semibold"
-                >Enviar informações adicionais</button>
+                @if (!desaparecido.ultimaOcorrencia?.dataLocalizacao) {
+                  <button
+                      (click)="openDialogSendInformations()"
+                      class="bg-red-600 text-white rounded-xl w-full p-3 font-semibold"
+                  >Enviar informações adicionais</button>
+                }
               </div>
             </div>
         </div>
