@@ -1,0 +1,101 @@
+<div class="row">
+    <form
+        id="formSendInformation"
+        class="flex flex-col justify-center items-center p-8"
+        [formGroup]="formFields"
+    >
+        <p class="font-semibold">Formulário Enviar Informações</p>
+        <div class="flex flex-col justify-start w-full mt-2">
+            <label class="block text-gray-500 font-medium">Informações</label>
+            <textarea
+                class="w-full p-3 border border-gray-300 shadow-sm  focus:border-none rounded-md"
+                [ngClass]="{
+                    'border-red-500': isFieldInvalid('informacao')
+                }"
+                id="informacao" name="informacao" placeholder="Digite as informações importantes..." formControlName="informacao"
+            ></textarea>
+            <span class="text-red-500 text-sm" *ngIf="isFieldInvalid('informacao')">
+                Campo obrigatório.
+            </span>
+        </div>
+        <div class="flex flex-col justify-start w-full mt-2">
+            <label class="block text-gray-500 font-medium">Data</label>
+            <input
+                type="date"
+                class="w-full p-3 border border-gray-300 shadow-sm  focus:border-none rounded-md"
+                [ngClass]="{
+                    'border-red-500': isFieldInvalid('data')
+                }"
+                id="data" name="data" formControlName="data"
+            >
+            <span class="text-red-500 text-sm" *ngIf="isFieldInvalid('data')">
+                Campo obrigatório.
+            </span>
+        </div>
+        <div class="flex flex-col justify-start w-full mt-4">
+            <div class="flex flex-col w-40">
+                <button
+                    (click)="file.click()"
+                    class="bg-teal-500 hover:bg-teal-800 text-center text-white p-3 rounded-xl w-full"
+                    for="file"
+                >Adicionar anexo</button>
+                <input type="file" hidden multiple #file [accept]="acceptTypeFiles" (change)="addFile($event)">
+                <span class="text-sm text-zinc-500">PNG, JPG, JPEG - 3MB</span>
+            </div>
+        </div>
+        <div class="flex mt-4 w-full">
+            @if (!!files && files.length === 0) {
+                <div class="flex justify-center items-center text-gray-500 w-full bg-gray-200 p-3 rounded-md border-gray-300 border-2">
+                    <p>Nenhum arquivo selecionado.</p>
+                </div>
+            }
+            @if (!!files && files.length > 0) {
+                <div class="flex justify-center items-center w-full bg-gray-200 rounded-md text-center">
+                    <table class="w-full">
+                        <tr class="bg-gray-600 h-10 text-white">
+                            <th>Nome do arquivo</th>
+                            <th>Tamanho</th>
+                            <th>Ação</th>
+                        </tr>
+                        @for (file of files; track $index) {
+                            <tr
+                                class="h-10" 
+                                [ngClass]="{
+                                    'bg-gray-200': $index%2 === 0,
+                                    'bg-gray-300': $index%2 !== 0
+                                }"
+                            >
+                                <td >{{file.name}}</td>
+                                <td >{{getSizeMbFile(file)}}</td>
+                                <td class="flex justify-center items-center h-10 text-center">
+                                    <button
+                                        class="text-red-600 hover:text-white hover:bg-red-600 rounded-full h-6 w-6 flex justify-center items-center text-center"
+                                        (click)="removeFile(file)"
+                                    >X</button>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            }
+        </div>
+        
+        <div class="flex w-full justify-center items-center mt-4">
+            <div class="flex w-full flex-row">
+                <div class="basis-1/2 flex justify-center items-center">
+                    <button
+                        (click)="closeDialog()"
+                        class="bg-red-500 hover:bg-red-700 text-white p-3 rounded-xl"
+                    >Cancelar</button>
+                </div>
+                <div class="basis-1/2 flex justify-center items-center">
+                    <button
+                        (click)="sendInformations()"
+                        [disabled]="!formFields.valid"
+                        class="bg-green-600 hover:bg-green-800 text-white p-3 rounded-xl"
+                    >Enviar Informações</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
