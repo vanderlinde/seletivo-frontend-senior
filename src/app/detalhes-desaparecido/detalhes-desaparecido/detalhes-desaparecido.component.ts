@@ -3,6 +3,8 @@ import { Pessoa } from '../detalhes-desaparecido';
 import { ListaSexos } from '../../home/home';
 import { ActivatedRoute } from '@angular/router';
 import { DetalhesDesaparecidoService } from '../detalhes-desaparecido.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { EnviarInformacoesComponent } from '../enviar-informacoes/enviar-informacoes.component';
 
 @Component({
   selector: 'app-detalhes-desaparecido',
@@ -20,14 +22,17 @@ export class DetalhesDesaparecidoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private detalhesService: DetalhesDesaparecidoService
+    private detalhesService: DetalhesDesaparecidoService,
+    private dialogService: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.getDesaparecidoId()
     this.detalhesService.getDesaparecido(this.desaparecidoId).subscribe((resp) => {
       this.desaparecido = resp
-      console.log('desaparecido', this.desaparecido)
+      setTimeout(() => {
+        this.loadingDesaparecido = false
+      }, 500)
     } )
   }
 
@@ -42,7 +47,12 @@ export class DetalhesDesaparecidoComponent implements OnInit {
     return Math.floor(diff / (1000 * 50 * 40 * 24))
   }
 
-  teste(){
-    console.log('button')
+  openDialogSendInformations(){
+    this.dialogService.open(EnviarInformacoesComponent, {
+      data: this.desaparecido,
+      maxWidth: '600px',
+      width: '100%',
+      disableClose: true,
+    })
   }
 }
