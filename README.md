@@ -41,7 +41,7 @@ npm install
 #Para iniciar o projeto em modo Desenvolvimento.
 npm run start
 ```
-Esse procedimento irá realizar o build e vai iniciar o projeto no link:  [localhost:4200](http://localhost:4200)
+Esse procedimento irá realizar o build e vai iniciar e abrir no navegador padrão. Se precisar do link para o acesso em outro navegador utilize: [localhost:4200](http://localhost:4200)
 
 ### Com Docker Compose
 
