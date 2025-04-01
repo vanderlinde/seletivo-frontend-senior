@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { DetalhesDesaparecidoRoutingModule } from './detalhes-desaparecido-routing.module';
 import { DetalhesDesaparecidoComponent } from './detalhes-desaparecido/detalhes-desaparecido.component';
+import { EnviarInformacoesComponent } from './enviar-informacoes/enviar-informacoes.component';
 
 
 @NgModule({
@@ -11,7 +12,10 @@ import { DetalhesDesaparecidoComponent } from './detalhes-desaparecido/detalhes-
   ],
   imports: [
     CommonModule,
-    DetalhesDesaparecidoRoutingModule
-  ]
+    DatePipe,
+    DetalhesDesaparecidoRoutingModule,
+    EnviarInformacoesComponent
+  ],
+  providers:[DatePipe]
 })
 export class DetalhesDesaparecidoModule { }
