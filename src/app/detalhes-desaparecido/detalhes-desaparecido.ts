@@ -40,6 +40,14 @@ export interface IListaCartaz {
   tipoCartaz: TipoCartaz;
 }
 
+export interface IInformacao {
+  informacao: string;
+  descricao: string;
+  data: string;
+  ocoId: number;
+  files: File[];
+}
+
 export const TiposCartaz = {
   INSTA_DESAPARECIDO: 'Instagram',
   JPG_DESAPARECIDO: 'Cartaz',
