@@ -122,13 +122,28 @@
                 <app-card-skeleton class="w-full" *ngFor="let n of skeletons"></app-card-skeleton>
             }
             @if (!loadingDesaparecidos) {
-                <app-card-person
-                    class="w-full"
-                    *ngFor="let desaparecido of desaparecidos.content"
-                    [desaparecido]="desaparecido"
-                ></app-card-person>
+                @if (!!desaparecidos.content && desaparecidos.content.length > 0) {
+                    <app-card-person
+                        class="w-full"
+                        *ngFor="let desaparecido of desaparecidos.content"
+                        [desaparecido]="desaparecido"
+                    ></app-card-person>
+                }
             }
         </div>
+        
+        @if (!loadingDesaparecidos) {
+            @if (!!desaparecidos.content && desaparecidos.content.length === 0) {
+                <div class="row w-full">
+                    <div class="flex flex-col justify-center items-center w-full">
+                        <div class="w-full sm:w-[40rem] h-full flex justify-center items-center">
+                            <img src="assets/no_results.svg" alt="Uma imagem com uma pasta amarela semi aberta sendo visualizada de lado, um arquivo dentro da pasta com um pedaço para fora e uma lupa representando uma pesquisa">
+                        </div>
+                        <p class="text-xl sm:text-4xl font-semibold text-center mt-[-40px]">Nenhum resultado encontrado.</p>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </div>
 

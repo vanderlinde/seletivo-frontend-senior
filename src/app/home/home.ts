@@ -13,7 +13,7 @@ export class ResultadoPaginado {
     numberOfElements?: number;
     first?: boolean;
     size?: number;
-    content?: Array<Desaparecido>;
+    content?: Array<Desaparecido> = [];
 }
 
 export class Desaparecido {
