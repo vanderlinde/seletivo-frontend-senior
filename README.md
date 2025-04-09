@@ -13,7 +13,7 @@
 ### DADOS DO PARTICIPANTE:
 
 Nome: Marcelo Vanderlinde Júnior  
-Telefone: (66) 9 9952-3868
+Telefone: (66) 9 9952-3868  
 Email: mvanderlindejr@gmail.com  
 Vaga: Frontend Senior
 
@@ -29,7 +29,7 @@ Frameworks e libs utilizadas:
 
 ### Com Node.js
 
-- Tenha instalado o Node na versão `18.19` ou superior;
+- Tenha instalado o Node na versão `18.19` ou superior (recomendada versão `22`);
 - Rode os seguintes comandos:
 
 ```bash
